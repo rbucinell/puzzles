@@ -59,7 +59,7 @@ function guess_naive()
 {
     //Pick a random word
     let randomIndex = Math.floor(Math.random()*list.length);
-    guess = list[ randomIndex ];
+    return list[ randomIndex ];
 }
 
 async function resetList()
@@ -105,7 +105,6 @@ async function main()
         else
         {
             guess = getNextGuess();
-            console.log( `New guess is: ${guess} at index ${randomIndex}`);
             //Type in Guess
             guess.split('').forEach( l => keyboard.querySelector(`button[data-key="${l}"]`).click() );
             //Hit Submit
