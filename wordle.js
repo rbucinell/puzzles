@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Wordle Solver
+// @name         Wordle Solver!
 // @namespace    http://tampermonkey.net/
 // @version      1.1
 // @description  Solve todays wordle
@@ -14,6 +14,16 @@ let list = [];
 let game     = document.querySelector("game-app").shadowRoot.querySelector("game-theme-manager > #game");
 let board    = game.querySelector("#board-container #board");
 let keyboard = game.querySelector('game-keyboard').shadowRoot.querySelector('#keyboard');
+
+function insertSolveButton() {
+    const btnStr = `<button id="solver" class="toast" style=" width: 100%; height: 2rem;"> Solve it</button>`;
+    let template = document.createElement('template');
+    template.innerHTML = btnStr;
+    let header = game.querySelector('header');
+    template.content.firstChild.addEventListener('click', solve );
+    header.parentNode.insertBefore(template.content.firstChild, header.nextSibling);
+}
+
 
 function evaluateTiles(tiles )
 {
@@ -68,7 +78,7 @@ async function wait( milliseconds )
     await new Promise(r => setTimeout(r, milliseconds ));
 }
 
-async function main()
+async function solve()
 {
     await resetList();
     for( let guessCount = 1; guessCount <= 6; guessCount++ )
@@ -124,7 +134,15 @@ async function main()
         evaluateTiles(tiles);
     }
 }
+
+/**
+ * 
+ *
+ * @param {*} word
+ */
+
+
 (function() {
     'use strict';
-    main();
+    insertSolveButton();
 })();
