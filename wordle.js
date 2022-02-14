@@ -4,6 +4,8 @@
 // @version      1.2
 // @description  Solve todays wordle
 // @author       Ryan Bucinell
+// @match        https://www.nytimes.com/games/wordle/
+// @match        https://www.nytimes.com/games/wordle/index.html
 // @match        https://www.powerlanguage.co.uk/wordle/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=powerlanguage.co.uk
 // @grant        none
@@ -39,10 +41,9 @@ class Solver {
             const btnStr = `<button id="solver" class="toast" style=" width: 100%; height: 2rem;"> Solve it</button>`;
             let template = document.createElement('template');
             template.innerHTML = btnStr;
-            let header = this.game.querySelector('header');
             template.content.firstChild.solver = this;
             template.content.firstChild.addEventListener('click', this.solve );
-            header.parentNode.insertBefore(template.content.firstChild, header.nextSibling);
+            this.game.insertBefore(template.content.firstChild,this.game.firstChild);
         }
     }
 
@@ -198,4 +199,5 @@ let solver;
 (function() {
     'use strict';
     solver = new Solver();
+    solver.insertSolveButton();
 })();
